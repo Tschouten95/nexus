@@ -1,0 +1,63 @@
+<svg width="200" height="200" viewBox="38 38 124 124" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Nexus icon</title>
+  <desc>A geometric network icon with a central node connected to six surrounding nodes.</desc>
+
+  <style>
+    .spoke { stroke: #2563eb; stroke-width: 1.5px; }
+    .ring  { stroke: #2563eb; stroke-width: 0.75px; opacity: 0.4; }
+    .orbit { stroke: #93c5fd; stroke-width: 0.5px; fill: none; stroke-dasharray: 4 4; }
+    .node-outer { fill: #eff6ff; stroke: #2563eb; stroke-width: 1.5px; }
+    .node-inner { fill: #2563eb; }
+    .center-outer { fill: #dbeafe; stroke: #2563eb; stroke-width: 2px; }
+    .center-inner { fill: #2563eb; }
+    .wordmark { font-family: system-ui, sans-serif; font-size: 13px; font-weight: 600; fill: #1e293b; text-anchor: middle; letter-spacing: 0.12em; }
+    .sub { font-family: system-ui, sans-serif; font-size: 8px; font-weight: 400; fill: #64748b; text-anchor: middle; letter-spacing: 0.1em; }
+  </style>
+
+  <g transform="translate(100, 100)">
+    <!-- orbit ring -->
+    <circle class="orbit" cx="0" cy="0" r="52"/>
+
+    <!-- spokes -->
+    <line class="spoke" x1="0" y1="0" x2="0" y2="-52"/>
+    <line class="spoke" x1="0" y1="0" x2="45" y2="-26"/>
+    <line class="spoke" x1="0" y1="0" x2="45" y2="26"/>
+    <line class="spoke" x1="0" y1="0" x2="0" y2="52"/>
+    <line class="spoke" x1="0" y1="0" x2="-45" y2="26"/>
+    <line class="spoke" x1="0" y1="0" x2="-45" y2="-26"/>
+
+    <!-- hex ring connections -->
+    <line class="ring" x1="0" y1="-52" x2="45" y2="-26"/>
+    <line class="ring" x1="45" y1="-26" x2="45" y2="26"/>
+    <line class="ring" x1="45" y1="26" x2="0" y2="52"/>
+    <line class="ring" x1="0" y1="52" x2="-45" y2="26"/>
+    <line class="ring" x1="-45" y1="26" x2="-45" y2="-26"/>
+    <line class="ring" x1="-45" y1="-26" x2="0" y2="-52"/>
+
+    <!-- outer nodes -->
+    <circle class="node-outer" cx="0" cy="-52" r="7"/>
+    <circle class="node-inner" cx="0" cy="-52" r="3.5"/>
+
+    <circle class="node-outer" cx="45" cy="-26" r="7"/>
+    <circle class="node-inner" cx="45" cy="-26" r="3.5"/>
+
+    <circle class="node-outer" cx="45" cy="26" r="7"/>
+    <circle class="node-inner" cx="45" cy="26" r="3.5"/>
+
+    <circle class="node-outer" cx="0" cy="52" r="7"/>
+    <circle class="node-inner" cx="0" cy="52" r="3.5"/>
+
+    <circle class="node-outer" cx="-45" cy="26" r="7"/>
+    <circle class="node-inner" cx="-45" cy="26" r="3.5"/>
+
+    <circle class="node-outer" cx="-45" cy="-26" r="7"/>
+    <circle class="node-inner" cx="-45" cy="-26" r="3.5"/>
+
+    <!-- center node -->
+    <circle class="center-outer" cx="0" cy="0" r="14"/>
+    <circle class="center-inner" cx="0" cy="0" r="7"/>
+  </g>
+
+  <text class="wordmark" x="100" y="165">NEXUS</text>
+  <text class="sub" x="100" y="178">DASHBOARD</text>
+</svg>

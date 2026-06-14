@@ -1,0 +1,40 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .spoke { stroke: #2563eb; stroke-width: 0.5px; }
+    .ring  { stroke: #2563eb; stroke-width: 0.3px; opacity: 0.4; }
+    .orbit { stroke: #93c5fd; stroke-width: 0.2px; fill: none; stroke-dasharray: 1.5 1.5; }
+    .node-outer { fill: #eff6ff; stroke: #2563eb; stroke-width: 0.5px; }
+    .node-inner { fill: #2563eb; }
+    .center-outer { fill: #dbeafe; stroke: #2563eb; stroke-width: 0.7px; }
+    .center-inner { fill: #2563eb; }
+  </style>
+  <g transform="translate(16, 16)">
+    <circle class="orbit" cx="0" cy="0" r="11"/>
+    <line class="spoke" x1="0" y1="0" x2="0" y2="-11"/>
+    <line class="spoke" x1="0" y1="0" x2="9.5" y2="-5.5"/>
+    <line class="spoke" x1="0" y1="0" x2="9.5" y2="5.5"/>
+    <line class="spoke" x1="0" y1="0" x2="0" y2="11"/>
+    <line class="spoke" x1="0" y1="0" x2="-9.5" y2="5.5"/>
+    <line class="spoke" x1="0" y1="0" x2="-9.5" y2="-5.5"/>
+    <line class="ring" x1="0" y1="-11" x2="9.5" y2="-5.5"/>
+    <line class="ring" x1="9.5" y1="-5.5" x2="9.5" y2="5.5"/>
+    <line class="ring" x1="9.5" y1="5.5" x2="0" y2="11"/>
+    <line class="ring" x1="0" y1="11" x2="-9.5" y2="5.5"/>
+    <line class="ring" x1="-9.5" y1="5.5" x2="-9.5" y2="-5.5"/>
+    <line class="ring" x1="-9.5" y1="-5.5" x2="0" y2="-11"/>
+    <circle class="node-outer" cx="0" cy="-11" r="2"/>
+    <circle class="node-inner" cx="0" cy="-11" r="1"/>
+    <circle class="node-outer" cx="9.5" cy="-5.5" r="2"/>
+    <circle class="node-inner" cx="9.5" cy="-5.5" r="1"/>
+    <circle class="node-outer" cx="9.5" cy="5.5" r="2"/>
+    <circle class="node-inner" cx="9.5" cy="5.5" r="1"/>
+    <circle class="node-outer" cx="0" cy="11" r="2"/>
+    <circle class="node-inner" cx="0" cy="11" r="1"/>
+    <circle class="node-outer" cx="-9.5" cy="5.5" r="2"/>
+    <circle class="node-inner" cx="-9.5" cy="5.5" r="1"/>
+    <circle class="node-outer" cx="-9.5" cy="-5.5" r="2"/>
+    <circle class="node-inner" cx="-9.5" cy="-5.5" r="1"/>
+    <circle class="center-outer" cx="0" cy="0" r="3.5"/>
+    <circle class="center-inner" cx="0" cy="0" r="1.8"/>
+  </g>
+</svg>
