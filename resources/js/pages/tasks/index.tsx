@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { router } from '@inertiajs/react';
-import AppLayout from '@/layouts/app-layout';
+import ViewTaskModal from '@/components/tasks/view-task-modal';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -48,6 +48,15 @@ const PRIORITY_STYLES: Record<string, string> = {
 export default function Tasks({ tasks: initialTasks = [] }: { tasks: Task[] }) {
     const [tasks, setTasks] = useState<Task[]>(initialTasks);
     const [activeId, setActiveId] = useState<number | null>(null);
+    const [viewTask, setViewTask] = useState<Task | null>(() => {
+        const id = Number(new URLSearchParams(window.location.search).get('view'));
+        return id ? (initialTasks.find(t => t.id === id) ?? null) : null;
+    });
+
+    function handleViewClose() {
+        setViewTask(null);
+        window.history.replaceState(null, '', window.location.pathname);
+    }
 
     const sensors = useSensors(
         useSensor(PointerSensor, { activationConstraint: { distance: 6 } })
@@ -153,7 +162,7 @@ export default function Tasks({ tasks: initialTasks = [] }: { tasks: Task[] }) {
                             .filter(t => t.status === col.key)
                             .sort((a, b) => a.position - b.position);
                         return (
-                            <Column key={col.key} id={col.key} label={col.label} items={items} />
+                            <Column key={col.key} id={col.key} label={col.label} items={items} onView={setViewTask} />
                         );
                     })}
                 </div>
@@ -162,11 +171,13 @@ export default function Tasks({ tasks: initialTasks = [] }: { tasks: Task[] }) {
                     {activeTask ? <TaskCard task={activeTask} overlay /> : null}
                 </DragOverlay>
             </DndContext>
+
+            <ViewTaskModal task={viewTask} onOpenChange={(open) => { if (!open) handleViewClose(); }} />
         </div>
     );
 }
 
-function Column({ id, label, items }: { id: string; label: string; items: Task[] }) {
+function Column({ id, label, items, onView }: { id: string; label: string; items: Task[]; onView: (task: Task) => void }) {
     const { setNodeRef, isOver } = useDroppable({ id });
 
     return (
@@ -188,7 +199,7 @@ function Column({ id, label, items }: { id: string; label: string; items: Task[]
                     {items.length === 0 ? (
                         <p className="px-1 py-6 text-center text-xs text-faint">Nothing here yet</p>
                     ) : (
-                        items.map(task => <SortableTaskCard key={task.id} task={task} />)
+                        items.map(task => <SortableTaskCard key={task.id} task={task} onView={onView} />)
                     )}
                 </div>
             </SortableContext>
@@ -196,7 +207,7 @@ function Column({ id, label, items }: { id: string; label: string; items: Task[]
     );
 }
 
-function SortableTaskCard({ task }: { task: Task }) {
+function SortableTaskCard({ task, onView }: { task: Task; onView: (task: Task) => void }) {
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
         useSortable({ id: task.id });
 
@@ -208,16 +219,19 @@ function SortableTaskCard({ task }: { task: Task }) {
             {...attributes}
             {...listeners}
         >
-            <TaskCard task={task} />
+            <TaskCard task={task} onView={onView} />
         </div>
     );
 }
 
-function TaskCard({ task, overlay = false }: { task: Task; overlay?: boolean }) {
+function TaskCard({ task, overlay = false, onView }: { task: Task; overlay?: boolean; onView?: (task: Task) => void }) {
     return (
         <div
-            className={`group relative cursor-grab overflow-hidden rounded-lg border border-line bg-surface p-4 shadow-sm transition active:cursor-grabbing ${
-                overlay ? 'shadow-lg ring-1 ring-task/30 rotate-1' : 'hover:shadow-md'
+            onClick={() => onView?.(task)}
+            className={`group relative overflow-hidden rounded-lg border border-line bg-surface p-4 shadow-sm transition ${
+                overlay
+                    ? 'rotate-1 cursor-grabbing shadow-lg ring-1 ring-task/30'
+                    : 'cursor-pointer hover:shadow-md'
             }`}
         >
             <span className="absolute inset-y-0 left-0 w-1 bg-task" />

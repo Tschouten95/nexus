@@ -2,9 +2,9 @@ import { useForm } from '@inertiajs/react';
 import { Pencil, Trash2 } from 'lucide-react';
 
 interface Note { id: number; title: string; content: string; created_at: string; }
-interface Props { notes?: Note[]; onEdit: (note: Note) => void; }
+interface Props { notes?: Note[]; onEdit: (note: Note) => void; onView: (note: Note) => void; }
 
-export default function NotesTable({ notes = [], onEdit }: Props) {
+export default function NotesTable({ notes = [], onEdit, onView }: Props) {
     const { delete: destroy } = useForm();
 
     function handleDelete(note: Note) {
@@ -29,15 +29,17 @@ export default function NotesTable({ notes = [], onEdit }: Props) {
             {notes.map(note => (
                 <div
                     key={note.id}
-                    className="group relative overflow-hidden rounded-xl border border-border bg-card p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                    onClick={() => onView(note)}
+                    className="group relative cursor-pointer overflow-hidden rounded-xl border border-border bg-card p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
                 >
-                    {/* colored left edge — the "note" accent */}
                     <span className="absolute inset-y-0 left-0 w-1 bg-note" />
 
                     <div className="flex items-start justify-between gap-2">
                         <h3 className="font-display font-semibold text-ink">{note.title}</h3>
-                        {/* actions appear on hover */}
-                        <div className="flex shrink-0 gap-1 opacity-0 transition group-hover:opacity-100">
+                        <div
+                            className="flex shrink-0 gap-1 opacity-0 transition group-hover:opacity-100"
+                            onClick={e => e.stopPropagation()}
+                        >
                             <button
                                 onClick={() => onEdit(note)}
                                 className="rounded-md p-1.5 text-muted hover:bg-accent hover:text-primary"

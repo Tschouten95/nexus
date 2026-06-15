@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import NotesTable from "@/components/notes/notes-table";
 import CreateNoteModal from '@/components/notes/create-note-modal';
 import EditNoteModal from '@/components/notes/edit-note-modal';
+import ViewNoteModal from '@/components/notes/view-note-modal';
 
 interface Note {
     id: number;
@@ -21,8 +22,17 @@ interface Props {
 export default function Notes({ notes }: Props) {
     const [open, setOpen] = useState(false);
     const [editNote, setEditNote] = useState<Note | null>(null);
+    const [viewNote, setViewNote] = useState<Note | null>(() => {
+        const id = Number(new URLSearchParams(window.location.search).get('view'));
+        return id ? (notes.data.find(n => n.id === id) ?? null) : null;
+    });
 
     const count = notes.data.length;
+
+    function handleViewClose() {
+        setViewNote(null);
+        window.history.replaceState(null, '', window.location.pathname);
+    }
 
     return (
         <div className="mx-auto max-w-6xl px-6 py-8">
@@ -48,9 +58,10 @@ export default function Notes({ notes }: Props) {
                 </Button>
             </div>
 
-            <NotesTable notes={notes.data} onEdit={setEditNote} />
+            <NotesTable notes={notes.data} onEdit={setEditNote} onView={setViewNote} />
             <CreateNoteModal open={open} onOpenChange={setOpen} />
             <EditNoteModal note={editNote} onOpenChange={open => !open && setEditNote(null)} />
+            <ViewNoteModal note={viewNote} onOpenChange={(open) => { if (!open) handleViewClose(); }} />
         </div>
     );
 }

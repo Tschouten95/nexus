@@ -2,6 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\Task\TaskStatus;
+use App\Models\Bookmark;
+use App\Models\Note;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -41,6 +45,11 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'sidebarCounts' => $request->user() ? [
+                'notes'     => Note::count(),
+                'tasks'     => Task::where('status', '!=', TaskStatus::DONE->value)->count(),
+                'bookmarks' => Bookmark::count(),
+            ] : null,
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
     }

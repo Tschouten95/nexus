@@ -1,5 +1,5 @@
-import { Link } from '@inertiajs/react';
-import { BookOpen, FolderGit2, LayoutGrid, Notebook } from 'lucide-react';
+import { Link, usePage } from '@inertiajs/react';
+import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
@@ -21,17 +21,6 @@ import { index as notesIndex } from '@/routes/notes';
 import Brand from './brand';
 
 
-const workspaceNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: dashboard(),
-        icon: LayoutGrid,
-    },
-    { title: 'Notes',     href: notesIndex(), dot: 'bg-note' },
-    { title: 'Tasks',     href: '/tasks',     dot: 'bg-task' },
-    { title: 'Bookmarks', href: '/bookmarks', dot: 'bg-mark' },
-];
-
 const footerNavItems: NavItem[] = [
     {
         title: 'Repository',
@@ -46,6 +35,15 @@ const footerNavItems: NavItem[] = [
 ];
 
 export function AppSidebar() {
+    const { sidebarCounts } = usePage().props;
+
+    const workspaceNavItems: NavItem[] = [
+        { title: 'Dashboard', href: dashboard(), icon: LayoutGrid },
+        { title: 'Notes',     href: notesIndex(), dot: 'bg-note', count: sidebarCounts?.notes },
+        { title: 'Tasks',     href: '/tasks',     dot: 'bg-task', count: sidebarCounts?.tasks },
+        { title: 'Bookmarks', href: '/bookmarks', dot: 'bg-mark', count: sidebarCounts?.bookmarks },
+    ];
+
     return (
     <Sidebar collapsible="icon" variant="sidebar">
         <div

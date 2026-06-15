@@ -29,9 +29,7 @@ class TaskController extends Controller
             'tasks.*.position' => ['required', 'integer'],
         ]);
 
-        $userId = $request->user()->id;
-
-        DB::transaction(function () use ($validated, $userId) {
+        DB::transaction(function () use ($validated) {
             foreach ($validated['tasks'] as $row) {
                 Task::where('id', $row['id'])
                     ->update([

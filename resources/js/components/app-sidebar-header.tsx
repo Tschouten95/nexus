@@ -1,4 +1,5 @@
 import { Breadcrumbs } from '@/components/breadcrumbs';
+import { SearchBar } from '@/components/search-bar';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import type { BreadcrumbItem as BreadcrumbItemType } from '@/types';
 
@@ -11,6 +12,9 @@ export function AppSidebarHeader({
         <header className="flex h-16 shrink-0 items-center gap-2 border-b border-border px-6 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 md:px-4">
             <div className="flex items-center gap-2">
                 <SidebarTrigger className="-ml-1" />
+                <SearchBar />
+            </div>
+            <div className="ml-auto flex items-center gap-2">
                 <Breadcrumbs breadcrumbs={breadcrumbs} />
             </div>
         </header>
