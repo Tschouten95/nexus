@@ -17,7 +17,7 @@ export default function Welcome() {
 
     return (
         <>
-            <Head title="Nexus — your second brain, connected">
+            <Head title="Nexus — your workspace, connected">
                 <style>{heroKeyframes}</style>
             </Head>
 
@@ -113,7 +113,7 @@ export default function Welcome() {
                                         'nx-fade-up 0.7s ease-out 0.25s both',
                                 }}
                             >
-                                Your second brain,
+                                Your workspace,
                                 <br />
                                 <span className="bg-gradient-to-r from-[#60a5fa] via-[#a78bfa] to-[#fbbf24] bg-clip-text text-transparent">
                                     finally connected.

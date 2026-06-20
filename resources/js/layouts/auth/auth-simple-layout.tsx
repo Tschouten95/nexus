@@ -71,7 +71,7 @@ export default function AuthSimpleLayout({
                             }}
                         >
                             <h2 className="font-display text-2xl font-semibold text-white">
-                                Your second brain, connected.
+                                Your workspace, connected.
                             </h2>
                             <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-slate-400">
                                 One calm workspace for everything you think, do,

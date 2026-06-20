@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Enums\Tag\TagType;
 use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
@@ -46,5 +48,7 @@ class AppServiceProvider extends ServiceProvider
                 ->uncompromised()
             : null,
         );
+
+        Relation::enforceMorphMap(TagType::morphMap());
     }
 }
